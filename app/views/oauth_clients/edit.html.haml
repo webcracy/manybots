@@ -1,0 +1,12 @@
+#main
+  %h2 Edit your application
+  = form_for @client_application, :url => oauth_client_path(@client_application.id), :method => :put, :html => {:class => 'hform largeform'} do |f|
+    = render :partial => "form", :locals => { :f => f }
+    = submit_tag "Save", :class => 'awesome green large', :style => 'margin-left: 150px'
+    or 
+    = link_to "Cancel", app_path(@client_application), :class => 'awesome yellow'
+
+#resources
+  =button_to 'Back', app_path(@client_application), :method => :get, :class => 'awesome'
+  %br
+  =button_to 'Destroy', oauth_client_path(@client_application), :method => :delete, :class => 'awesome red', :confirm => "Are you sure you want to destroy this app?"

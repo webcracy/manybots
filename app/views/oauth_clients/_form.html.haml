@@ -1,0 +1,29 @@
+=error_messages_for :client_application
+
+%h3 Application info
+
+%p.field
+  %label{:for=>"client_application_name"} Name*
+  = f.text_field :name 
+
+%p.field
+  %label{:for=>"client_application_description"} Description*
+  = f.text_area :description
+
+%p.field
+  %label{:for=>"client_application_url"} Main Application URL*
+  = f.text_field :url 
+
+%p.field
+  %label{:for=>"client_application_callback_url"} OAuth Callback URL*
+  = f.text_field :callback_url 
+
+%p.field
+  %label{:for=>"client_application_support_url"} Support URL
+  = f.text_field :support_url 
+
+%h3 Publish your application  
+
+%p.checkbox
+  = f.check_box :is_public
+  %label{:for=>"client_application_is_public"} Publish my application and make it available in the application catalogue for all users

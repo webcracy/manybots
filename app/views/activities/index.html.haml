@@ -1,0 +1,44 @@
+#main
+  .page_header
+    .altviews
+      %span.calendar.icon 
+        %a.show.calendar{:href => '/activities/calendar'} Show/hide calendar view
+    %h2 Activities
+    
+  - if params[:filter]
+    .filters
+      %p 
+        %strong Active filters
+        - params[:filter].each do |filtro, valor|
+          %span.name
+            - unless filtro.to_s == 'tags'
+              = filtro.to_s.capitalize.singularize
+              %a{:href => activities_path(params_trick(filtro, valor, params)), :class => active_param?(filtro, valor, params)}
+                - if filtro.to_s == 'actors'
+                  = User.find_by_id(valor.split('/').last.upcase).name
+                - else 
+                  = valor.split('/').last.upcase
+            - else 
+              = filtro.to_s.capitalize
+              - valor.split(',').each do |tag|
+                %a{:href => activities_path(params_trick(filtro, tag, params)), :class => active_param?(filtro, tag, params)}
+                  = tag
+                &nbsp;  
+                  
+        <br/><a href="/activities" class="">Clear all</a>
+                
+  %ul#activities
+    - unless @activities.empty?  
+      %li
+        = render :partial => 'activity', :collection => @activities
+    - else
+      %li
+        No activities under this filter
+  
+  = will_paginate @activities
+      
+#resources 
+  <a href="/activities/new" class="large awesome green">Create a new Activity »</a><br/>
+  <a href="/apps" class="large awesome blue">Browse Applications »</a><br/>
+  
+#calendar

@@ -1,0 +1,16 @@
+development:
+  server_name: Manybots
+  host: http://localhost:3000
+  schema_url: http://localhost:3000/schema
+
+test:
+  server_name: Manybots
+  host: http://test.host
+  schema_url: http://test.host/schema
+
+production:
+  server_name: Manybots
+  host: http://manybots.com
+  schema_url: http://manybots.com/schema
+
+  

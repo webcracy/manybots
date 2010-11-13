@@ -1,0 +1,51 @@
+#main
+  
+  %h2 All applications
+  #apps{:style=>'margin-bottom: 20px;'}
+    %ul.apps
+      -for app in @apps
+        = content_tag_for :li, app do
+          %h4= link_to app.name, app.url
+          = app.description.present? ? app.description : raw("<em>no description available</em>")
+          %br
+          = link_to "Go to app »", app.url, :class => 'awesome small green'
+
+  - unless @tokens.empty?
+    %h2 Applications you're using
+
+    %table
+      %tr
+        %th Application
+        %th Last login
+        %th &nbsp;
+      - @tokens.each do |token|
+        = content_tag_for :tr, token do
+          %td= link_to token.client_application.name, token.client_application.url
+          %td= token.authorized_at
+          %td
+            = form_tag revoke_path do
+              = hidden_field_tag 'token', token.token
+              = submit_tag "Revoke!"
+
+#resources
+  %h3 App developers
+  = link_to "Register a new app »", {:controller => :oauth_clients, :action => :new}, {:class=>"awesome large blue"}
+  
+  - if @client_applications.empty?
+    %p
+      Do you have an application you would like to register for use with us using the <a href="http://oauth.net">OAuth</a> standard?
+      You must register your web application before it can make OAuth requests to this service
+  - else
+    %p
+      You have the following client applications registered:
+    %ul.resource_apps
+      - @client_applications.each do |client|
+        = content_tag_for :li, client, :class => 'resource' do
+          %h4= link_to client.name, :action => :show, :id => client.id
+          %p.small_description
+            = client.description.present? ? truncate(client.description) : "no description provided"
+            %br
+            %strong= client.is_public? ? "Published" : "Private"
+          = link_to 'Edit', edit_oauth_client_path(client)
+          = link_to 'Delete', oauth_client_path(client), :confirm => "Are you sure?", :method => :delete
+  %br

@@ -1,0 +1,60 @@
+#main
+  %h2=@client_application.name
+  
+  %p
+    This application is
+    %strong= (@client_application.is_public? ? "public" : "private") + '.'
+  
+  %p
+    %strong 
+      Number of users:
+    =@client_application.user_count
+      
+  %h3 Description
+  %p= @client_application.description.present? ? @client_application.description : raw("<em>No description provided</em>")
+  
+  %h3 Application URLs
+    
+  %ul
+    %li 
+      Application: 
+      = @client_application.url
+    %li 
+      Callback: 
+      = @client_application.callback_url
+    %li 
+      Support:
+      =@client_application.support_url
+  
+
+  %h3 
+    OAuth details for 
+    =@client_application.name
+  %p
+    %strong Consumer Key:
+    %code=@client_application.key
+  %p
+    %strong Consumer Secret:
+    %code=@client_application.secret 
+
+  %p
+    %strong Request Token URL
+    %code
+      ="http#{'s' if request.ssl?}://#{request.host_with_port}#{@client_application.oauth_server.request_token_path}"
+
+  %p
+    %strong Access Token URL
+    %code
+      ="http#{'s' if request.ssl?}://#{request.host_with_port}#{@client_application.oauth_server.access_token_path}"
+
+  %p
+    %strong Authorize URL
+    %code
+      ="http#{'s' if request.ssl?}://#{request.host_with_port}#{@client_application.oauth_server.authorize_path}"
+
+  %p
+    We support hmac-sha1 (recommended) as well as plain text in ssl mode.
+
+#resources
+  = link_to 'Edit', edit_oauth_client_path(@client_application), :class => 'awesome yellow'
+  = link_to 'Back', oauth_clients_path, :class => 'awesome'

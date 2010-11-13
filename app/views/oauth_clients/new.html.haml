@@ -1,0 +1,10 @@
+#main
+  %h2 Register a new application
+
+  = form_for :client_application, :url => { :action => :create }, :html => {:class => 'hform largeform'} do |f|
+    = render :partial => "form", :locals => { :f => f }
+    = submit_tag "Register", :class => 'awesome green large', :style => 'margin-left: 150px;'
+
+#resources
+  =link_to 'Cancel', apps_path, :class => 'awesome'
+  

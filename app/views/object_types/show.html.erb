@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @object_type.name %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%= @object_type.url_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_object_type_path(@object_type) %> |
+<%= link_to 'Back', object_types_path %>

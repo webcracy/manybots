@@ -1,0 +1,67 @@
+h1. Manybots Open Server
+
+h2. About
+
+"Manybots":http://manybots.com is a platform to log and visualize all your activities. 
+It utilizes "Activity Streams":http://activitystrea.ms and "OAuth":http://oauth.net to enable you to develop a cloud of applications that capture and analyze your (or anybody's, or anything's) activities.
+You can run your own Manybots Server or create an account at "http://manybots.com":http://manybots.com
+
+h2. Installation
+
+Manybots Open Server is built with "Ruby on Rails":http://rubyonrails.org. It's fairly easy to get it up an running, even if you're not a Rails developer. 
+
+Applications for Manybots can be written in any language since they interact through a json HTTP API.
+
+h3. Install Ruby, Rubygems and Rails 3
+
+You'll need Ruby 1.9.2 and Rails 3. You can start here: "http://rubyonrails.org/download":http://rubyonrails.org/download
+
+h3. Configuration
+
+* Edit "config/manybots_config.yml" to set your settings (if you're unsure, leave as is)
+* Run 'bundle install' (or just 'bundle')
+* Run 'rake db:migrate'
+* Run 'rake db:seed'
+* Run 'rails server'
+
+h3. Authentication 
+
+Manybots uses Devise to manage authentication. By default, account registration is enabled. There is no "admin", so just go ahead and create an account for yourself.
+
+By default, authentication with external accounts is turned off but you can turn it on. 
+To do it, enter your "Janrain Engage":http://www.janrain.com/products/engage app information in "config/initializers/devise.rb" and uncomment the rpx_connectable bit in "app/models/user.rb".
+
+h2. Documentation, Support
+
+* API documentation "http://manybots.com/api":http://manybots.com/api
+* Mailing list: "http://groups.google.com/group/manybots-dev":http://groups.google.com/group/manybots-dev
+
+h2. Credits
+
+Manybots Server was created by "Alexandre L. Solleiro":http://webcracy.org.
+
+Thank you to "Ruben Fonseca":http://0x82.com for early code contribution!
+
+h2. License
+
+The MIT License
+
+Copyright (c) 2010 Alexandre L. Solleiro <alex@webcracy.org>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.

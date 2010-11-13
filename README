@@ -1,137 +1,55 @@
+h1. Manybots Open Server
+
+h2. About
+
+Manybots is a platform to log and visualize all your activities. It utilizes Activity Streams and OAuth to enable you to develop a cloud of applications that capture and analyze your (or anybody's, or anything's) activities.
+You can run your own Manybots Server or create an account at http://manybots.com.
+
 h2. Installation
 
 h3. Install Ruby, Rubygems and Rails 3
 
+You'll Ruby 1.9.2 and Rails 3. You can start here: http://rubyonrails.org/download
+
 h3. Configuration
 
-* Edit "config/manybots_config.yml" to set you server name
-* Run rake db:migrate
-* Run rake db:seed
-* Run rails server
+* Edit "config/manybots_config.yml" to set your settings (if you're unsure, leave as is)
+* Run 'bundle install' (or just 'bundle')
+* Run 'rake db:migrate'
+* Run 'rake db:seed'
+* Run 'rails server'
 
 h3. Authentication 
 
 Manybots uses Devise to manage authentication. By default, account registration is enabled. There is no "admin".
 By default, "rpx_connectable" (login with external identifiers) is off but you can turn it on. To do it, enter your Janrain Engage information in config/initializers/devise.rb and uncomment the rpx_connectable bit in app/models/user.rb.
 
+h2. Documentation, Support
 
+For now, please refer to http://manybots.com/api for the existing API documentation.
 
+For everything else, please join the mailing list at: http://groups.google.com/group/manybots-dev
 
-== Example Activity in JSON format
+h2. License
 
-=== Reading with GET "/activities/1.json"
+The MIT License
 
-    {
-      "data": {
-        "items": [
-          {
-            "streamFaviconUrl": "http://manybots.server.com/images/service_icons/twitter.png"
-            "generator" :
-              {
-            		"permalinkUrl" : "http://www.twitter.com",
-            		"name" : "Twitter"
-            	},
-            /* NEW */
-          	"serviceProvider": {
-              "name": "Twitter",
-              "icon": "http://twitter.com/favicon.png",
-              "uri": "http://twitter.com"
-            },
-            "postedTime": "2010-07-21T13:28:00+00:00",
-            "title": "<a href=\"http://twitter.com/als\">@als</a> favorited a Status on <a href=\"http://twitter.com/\">Twitter</a>.",
-            "actor": {
-              "title": "Alex Solleiro",
-              "id": "http://manybots.server.com/alexsolleiro"
-            },
-            "permalinkUrl": "http://manybots.server.com/activities/1",
-            "id": "http://manybots.server.com/activities/1",
-            "summary": "<a href=\"http://twitter.com/umairh/status/18997088768\">umairh: The great contradiction at the heart of the global economy? Growth is about having more. But real prosperity is about needing less.</a>",
-            "object": {
-              "title": "umairh: The great contradiction at the heart of the global economy? Growth is about having more. But real prosperity is about needing less.",
-              "id": "http://twitter.com/umairh/status/18997088768",
-              "objectType": "http://activitystrea.ms/schema/1.0/status"
-            },
-            "verb": "http://activitystrea.ms/schema/1.0/favorite",
-            "manybotsTags": ['tag 1','tag 2','tag 3'],
-            /* NEW */
-            "place": {
-              "city": "Lisbon",
-              "country": "Portugal",
-              "landmark": "Rato (Linha Amarela)",
-              "state_province": "",
-              <!-- "lat": "", -->
-              <!-- "long": "" -->
-            }
-            city
-            country
-            landmark
-            state_province
-          }
-        ]
-      }
-    }
+Copyright (c) 2010 Alexandre L. Solleiro - webcracy.org
 
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-=== Writing with POST "/activities.json"
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
 
-Must have OAuth Authorization
-
-    {
-      "data": {
-        "items": [
-          {
-            /* This part can be omitted, we have it on OAuth App registration
-            "streamFaviconUrl": "http://www.bestsite.com/icon.png"
-            "generator" :
-              {
-            		"permalinkUrl" : "http://www.yoursite.com",
-            		"name" : "Your site"
-            	},
-            */
-            "postedTime": "2010-07-21T13:28:00+00:00",
-            /* NEW */
-            "serviceProvider": {
-              "name": "Twitter",
-              "icon": "http://twitter.com/favicon.png",
-              "uri": "http://twitter.com"
-            },
-            "title": "<a href=\"http://twitter.com/als\">@als</a> favorited a Status on <a href=\"http://twitter.com/\">Twitter</a>.",
-            /* This part can be omitted if the actor is the same as the user posting it
-            "actor": {
-              "title": "Alex Solleiro",
-              "id": "http://twitter.com/als"
-            },
-            */
-            "permalinkUrl": "http://example.com/activities/1",
-            "id": "http://example.com/activities/1",
-            "summary": "<a href=\"http://twitter.com/umairh/status/18997088768\">umairh: The great contradiction at the heart of the global economy? Growth is about having more. But real prosperity is about needing less.</a>",
-            "object": {
-              "title": "umairh: The great contradiction at the heart of the global economy? Growth is about having more. But real prosperity is about needing less.",
-              "id": "http://twitter.com/umairh/status/18997088768",
-              "objectType": "http://activitystrea.ms/schema/1.0/status"
-            }
-            "verb": "http://activitystrea.ms/schema/1.0/favorite",
-            "manybotsTags": ['tag 1','tag 2','tag 3'],
-            /* NEW ? */
-            "place": {
-              "city": "Lisbon",
-              "country": "Portugal",
-              "landmark": "Rato (Linha Amarela)",
-              "state_province": "",
-              <!-- "lat": "", -->
-              <!-- "long": "" -->
-            }
-          }
-        ],
-        /* This part is manybots specific */
-        "user" : {
-          "manybots_id": 1
-        },
-        /* If activity targets are Manybots users */
-        "targets" : [
-          {
-            "manybots_id": 2
-          }
-        ]
-      }
-    }	
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
